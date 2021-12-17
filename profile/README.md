@@ -1,12 +1,8 @@
 <div align="center">
 
-![Sapphire Logo](https://cdn.skyra.pw/gh-assets/sapphire-banner.png)
-
-# Sapphire
+<img src="https://cdn.skyra.pw/gh-assets/sapphire-banner.png" alt="Sapphire Logo" height="100" />
 
 **Imagine a Framework**
-
-[![GitHub](https://img.shields.io/github/license/sapphiredev/framework)](https://github.com/sapphiredev/framework/blob/main/LICENSE.md)
 
 [![Support Server](https://discord.com/api/guilds/737141877803057244/embed.png?style=banner2)](https://sapphirejs.dev/discord)
 
