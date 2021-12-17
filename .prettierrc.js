@@ -9,7 +9,7 @@ module.exports = {
 			options: {
 				tabWidth: 2,
 				useTabs: false,
-				printWidth: 120,
+				printWidth: 80,
 				proseWrap: 'always'
 			}
 		},
