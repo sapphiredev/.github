@@ -6,7 +6,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to fill out this bug report!!!
+        Thanks for taking the time to fill out this bug report!
   - type: checkboxes
     id: new-bug
     attributes:
@@ -27,7 +27,11 @@ body:
     attributes:
       label: Steps To Reproduce
       description: Steps to reproduce the behavior.
-      placeholder: "Please write the steps in a list form\n1. Write '...'\n2. Click on '...'\n3. See error"
+      placeholder: |
+        Please tell us how to reproduce this bug, for example:
+        1. Write '...'
+        2. Click on '...'
+        3. See error
     validations:
       required: true
   - type: textarea
