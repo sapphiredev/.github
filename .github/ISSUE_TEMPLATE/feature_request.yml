@@ -1,7 +1,7 @@
 name: Feature request
 description: Suggest an idea for this project
-title: "request: "
-labels: ["Meta: Feature"]
+title: 'request: '
+labels: ['Meta: Feature']
 body:
   - type: markdown
     attributes:
@@ -12,8 +12,8 @@ body:
       label: Is there an existing issue or pull request for this?
       description: Please search to see if an issue or pull request already exists for the feature you desire.
       options:
-      - label: I have searched the existing issues and pull requests
-        required: true
+        - label: I have searched the existing issues and pull requests
+          required: true
   - type: textarea
     id: feature-description
     attributes:

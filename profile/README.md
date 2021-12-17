@@ -8,4 +8,4 @@
 
 </div>
 
-[Discord.js]: https://discord.js.org/
+[discord.js]: https://discord.js.org/
