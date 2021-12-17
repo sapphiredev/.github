@@ -5,8 +5,7 @@ labels: ["Meta: Feature"]
 body:
   - type: markdown
     attributes:
-      value: |
-        Thanks for taking the time to fill out this bug report!!!
+      value: Thank you for suggesting this feature! The more information you provide, the more likely it is that it will be picked up.
   - type: checkboxes
     id: new-bug
     attributes:
