@@ -6,6 +6,10 @@
 
 [![Support Server](https://discord.com/api/guilds/737141877803057244/embed.png?style=banner2)](https://sapphirejs.dev/discord)
 
+
+| **[Visit our website for documentation and guides](https://sapphirejs.dev)**	|
+|-----------------------------------------------------------------------------	|
+
 </div>
 
 [discord.js]: https://discord.js.org/
