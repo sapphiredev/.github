@@ -6,7 +6,7 @@
 2. Create a new branch in your fork based off the **main** branch.
 3. Make your changes.
 4. Commit your changes, and push them.
-5. Submit a Pull Request [here]!
+5. Submit a Pull Request!
 
 ## Contributing to the code
 
@@ -25,8 +25,8 @@ fail.
 There are a number of guidelines considered when reviewing Pull Requests to be merged. _This is by no means an
 exhaustive list, but here are some things to consider before/while submitting your ideas._
 
-- Everything in Sapphire should be generally useful for the majority of users. Don't let that stop you if
-  you've got a good concept though, as your idea still might be a great addition.
+- Everything in Sapphire should be generally useful for the majority of users. Don't let that stop you if you've got a
+  good concept though, as your idea still might be a great addition.
 - Everything should be shard compliant. If code you put in a pull request would break when sharding, break other things
   from supporting sharding, or is incompatible with sharding; then you will need to think of a way to make it work with
   sharding in mind before the pull request will be accepted and merged.
@@ -39,7 +39,6 @@ exhaustive list, but here are some things to consider before/while submitting yo
 <!-- Link Dump -->
 
 [discord server]: https://sapphirejs.dev/discord
-[here]: https://github.com/sapphiredev/cli/pulls
 [eslint]: https://eslint.org/
 [node.js]: https://nodejs.org/en/download/
 [yarn]: https://yarnpkg.com/getting-started/install
