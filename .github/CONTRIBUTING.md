@@ -35,6 +35,8 @@ exhaustive list, but here are some things to consider before/while submitting yo
   through abstraction, and leads to efficiency and therefore scalability.
 - Everything should follow our ESLint rules as closely as possible, and should pass lint tests even if you must disable
   a rule for a single line.
+- Scripts that are to be ran outside of the scope of the bot should be added to a `scripts` directory at the root and
+  should be in the `.mjs` file format.
 
 <!-- Link Dump -->
 
@@ -43,4 +45,3 @@ exhaustive list, but here are some things to consider before/while submitting yo
 [node.js]: https://nodejs.org/en/download/
 [yarn]: https://yarnpkg.com/getting-started/install
 [oop paradigms]: https://en.wikipedia.org/wiki/Object-oriented_programming
-[scripts]: /scripts
