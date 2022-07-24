@@ -7,9 +7,7 @@
 [![Support Server](https://discord.com/api/guilds/737141877803057244/embed.png?style=banner2)](https://sapphirejs.dev/discord)
 
 
-| **[Visit our website for documentation and guides](https://sapphirejs.dev)**	|
-|-----------------------------------------------------------------------------	|
+| **[Visit our website for documentation and guides](https://sapphirejs.dev)**	| **[View our backlog](https://github.com/orgs/sapphiredev/projects/1/views/1)**  |
+|-----------------------------------------------------------------------------	| -------------------------------------------------------------------------------	|
 
 </div>
-
-[discord.js]: https://discord.js.org/
