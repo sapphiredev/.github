@@ -8,7 +8,7 @@
 	"scripts": {
 		"format": "prettier --write \"*\""
 	},
-	"packageManager": "yarn@3.2.3",
+	"packageManager": "yarn@3.2.4",
 	"dependencies": {
 		"@sapphire/prettier-config": "^1.4.4"
 	},
