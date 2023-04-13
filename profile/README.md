@@ -1,6 +1,6 @@
 <div align="center">
 
-<a href="https://www.sapphirejs.dev" target="_blank"><img src="https://cdn.skyra.pw/gh-assets/sapphire-banner.png" alt="Sapphire Logo" height="100" /></a>
+<a href="https://www.sapphirejs.dev" target="_blank"><img src="https://raw.githubusercontent.com/sapphiredev/assets/main/banners/SapphireCommunity.png" alt="Sapphire Logo" height="100" /></a>
 
 **Imagine a Framework**
 
