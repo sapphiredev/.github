@@ -14,7 +14,7 @@
 		"@sapphire/prettier-config": "^2.0.0"
 	},
 	"devDependencies": {
-		"prettier": "^3.0.2"
+		"prettier": "^3.0.3"
 	},
 	"resolutions": {
 		"ansi-regex": "^5.0.1",
