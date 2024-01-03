@@ -13,11 +13,14 @@
 <h3>Our Sponsors</h3>
 
 <div>
-  <a href="https://vercel.com/?utm_source=sapphiredev&utm_campaign=oss" rel="noopener noreferrer" target="_blank" aria-label="Sponsor link to Vercel">
+  <a href="https://vercel.com/?utm_source=sapphiredev&utm_campaign=oss" rel="noopener noreferrer" target="_blank" aria-label="Sponsor link to Vercel" style="margin-right: 0.5rem">
     <img alt="Logo Vercel" src="https://raw.githubusercontent.com/sapphiredev/resource-webhooks/main/public/icons/powered-by-vercel.svg" style="height: 40px;">
   </a>
-  <a href="https://polypane.app/" rel="noopener noreferrer" target="_blank" aria-label="Sponsor link to Polypane">
+  <a href="https://polypane.app/" rel="noopener noreferrer" target="_blank" aria-label="Sponsor link to Polypane" style="margin-right: 0.5rem">
     <img alt="Logo Polypane" src="https://raw.githubusercontent.com/sapphiredev/resource-webhooks/main/public/icons/powered-by-polypane.svg" style="height: 40px;">
+  </a>
+  <a href="https://www.cloudflare.com/" rel="noopener noreferrer" target="_blank" aria-label="Sponsor link to Cloudflare">
+    <img alt="Logo Cloudflare" src="https://raw.githubusercontent.com/sapphiredev/resource-webhooks/feat/add-cloudflare-sponsor-logo/public/icons/powered-by-cloudflare.svg" style="height: 40px;">
   </a>
 </div>
 
