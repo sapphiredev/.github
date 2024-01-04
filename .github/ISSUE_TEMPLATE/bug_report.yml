@@ -54,3 +54,12 @@ body:
       label: Additional context
       description: Do you want to share any additional context about this bug?
       placeholder: Add any other context about the problem here.
+  - type: textarea
+    id: system-info
+    attributes:
+      label: System Info
+      description: Output of `npx envinfo --system --binaries --browsers --npmPackages "{@sapphire/*}"`
+      render: shell
+      placeholder: System, Binaries, Browsers
+    validations:
+      required: true
