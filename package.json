@@ -9,7 +9,7 @@
 		"prettier": "prettier --ignore-path=.prettierignore",
 		"format": "prettier --write \"*\""
 	},
-	"packageManager": "yarn@4.1.1",
+	"packageManager": "yarn@4.2.1",
 	"dependencies": {
 		"@sapphire/prettier-config": "^2.0.0"
 	},
