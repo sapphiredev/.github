@@ -6,16 +6,12 @@
 
 [![Support Server](https://discord.com/api/guilds/737141877803057244/embed.png?style=banner2)](https://sapphirejs.dev/discord)
 
-
-| **[Visit our website for documentation and guides 📑](https://sapphirejs.dev)**	| **[View our backlog 🪵](https://github.com/orgs/sapphiredev/projects/1/views/1)**  |
-|-----------------------------------------------------------------------------	| -------------------------------------------------------------------------------	|
+| **[Visit our website for documentation and guides 📑](https://sapphirejs.dev)** | **[View our backlog 🪵](https://github.com/orgs/sapphiredev/projects/1/views/1)** |
+| ------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
 
 <h3>Our Sponsors</h3>
 
 <div>
-  <a href="https://vercel.com/?utm_source=sapphiredev&utm_campaign=oss" rel="noopener noreferrer" target="_blank" aria-label="Sponsor link to Vercel">
-    <img alt="Logo Vercel" src="https://raw.githubusercontent.com/sapphiredev/resource-webhooks/main/public/icons/powered-by-vercel.svg" style="height: 40px;">
-  </a>
   <a href="https://polypane.app/" rel="noopener noreferrer" target="_blank" aria-label="Sponsor link to Polypane">
     <img alt="Logo Polypane" src="https://raw.githubusercontent.com/sapphiredev/resource-webhooks/main/public/icons/powered-by-polypane.svg" style="height: 40px;">
   </a>
