@@ -23,6 +23,10 @@
 			{
 				"matchDepTypes": ["engines"],
 				"enabled": false
+			},
+			{
+				"matchPackagePatterns": ["@types/node"],
+				"enabled": false
 			}
 		]
 	}
