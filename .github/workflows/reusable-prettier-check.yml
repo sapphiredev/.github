@@ -14,8 +14,8 @@ on:
         default: ubuntu-latest
         type: string
       script-name:
-        description: The name of the script to run to validate formatting
-        required: true
+        description: The name of the script to run to validate formatting. Defaults to 'format:check'
+        required: false
         default: format:check
         type: string
 
