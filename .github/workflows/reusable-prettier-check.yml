@@ -13,6 +13,11 @@ on:
         required: false
         default: ubuntu-latest
         type: string
+      script-name:
+        description: The name of the script to run to validate formatting
+        required: true
+        default: format:check
+        type: string
 
 jobs:
   check:
@@ -25,5 +30,5 @@ jobs:
         uses: sapphiredev/.github/actions/install-yarn-dependencies
         with:
           node-version: ${{ inputs.node-version }}
-      - name: Run Prettier
-        run: yarn format:check
+      - name: Run formatting check
+        run: yarn ${{ inputs.script-name }}
