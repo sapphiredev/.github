@@ -34,4 +34,8 @@ jobs:
         run: yarn ${{ inputs.script-name }}
       - name: Debugging
         run: |
+          ls -lah ../
           ls -lah
+          ls -lah .github/
+          ls -lah .github/workflows/
+
