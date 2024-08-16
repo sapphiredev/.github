@@ -21,8 +21,15 @@ jobs:
     steps:
       - name: Checkout Project
         uses: actions/checkout@v4
+      - name: Checkout CI repository
+        uses: actions/checkout@v4
+        with:
+          path: ci-actions
+          sparse-checkout: actions/
+          sparse-checkout-cone-mode: false
+          repository: sapphiredev/.github
       - name: Install dependencies
-        uses: sapphiredev/.github/actions/install-yarn-dependencies
+        uses: ./ci-actions/actions/install-yarn-dependencies
         with:
           node-version: ${{ inputs.node-version }}
       - name: Linting
