@@ -37,7 +37,7 @@ jobs:
           path: overwrite-labels
           sparse-checkout: .github/labels.yml
           sparse-checkout-cone-mode: false
-          repository: 'sapphiredev/.github'
+          repository: ${{ inputs.repository-overwrite-labels }}
       - name: Merge labels
         if: ${{ inputs.merge-labels == true }}
         run: |
