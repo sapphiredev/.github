@@ -1,0 +1,27 @@
+name: codeql
+
+on:
+  workflow_call:
+    inputs:
+      operating-system:
+        description: The operating system to use
+        required: false
+        default: ubuntu-latest
+        type: string
+
+jobs:
+  codeql:
+    name: CodeQL
+    runs-on: ${{ inputs.operating-system }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v3
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
