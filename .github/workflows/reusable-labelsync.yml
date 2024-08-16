@@ -1,0 +1,39 @@
+name: Check Prettier
+
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        description: The version of Node.js to use
+        required: false
+        default: 20
+        type: number
+      operating-system:
+        description: The operating system to use
+        required: false
+        default: ubuntu-latest
+        type: string
+
+jobs:
+  check:
+    name: Check Prettier
+    runs-on: ${{ github.event.inputs.operating-system }}
+    steps:
+      - name: Checkout Project
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github/labels.yml
+          sparse-checkout-cone-mode: false
+          repository: 'sapphiredev/.github'
+      - name: Run analysis
+        run: |
+            pwd
+            ls -al ../
+            ls -al
+            ls -al .github
+            cat .github/labels.yml
+    #   - name: Run Label Sync
+    #     uses: crazy-max/ghaction-github-labeler@v5
+    #     with:
+    #       github-token: ${{ secrets.GITHUB_TOKEN }}
+    #       yaml-file: sapphiredev-config/.github/labels.yml
