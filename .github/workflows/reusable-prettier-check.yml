@@ -32,3 +32,6 @@ jobs:
           node-version: ${{ inputs.node-version }}
       - name: Run formatting check
         run: yarn ${{ inputs.script-name }}
+      - name: Debugging
+        run: |
+          ls -lah
