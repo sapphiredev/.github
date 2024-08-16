@@ -1,0 +1,24 @@
+name: Unit tests
+
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        description: The version of Node.js to use
+        required: false
+        default: 20
+        type: number
+      operating-system:
+        description: The operating system to use
+        required: false
+        default: ubuntu-latest
+        type: string
+
+jobs:
+  tests:
+    name: Unit tests
+    uses: sapphiredev/.github/.github/workflows/reusable-yarn-job.yml@main
+    with:
+      script-name: test
+      operating-system: ${{ inputs.operating-system }}
+      node-version: ${{ inputs.node-version }}
