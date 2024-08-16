@@ -29,6 +29,9 @@ on:
       SONAR_TOKEN:
         description: The token for the SonarQube server, required if inputs.enable-sonar is true
         required: false
+      NODE_AUTH_TOKEN:
+        description: The token to authenticate with the NPM registry
+        required: false
 
 jobs:
   run-job:
@@ -43,6 +46,8 @@ jobs:
           node-version: ${{ inputs.node-version }}
       - name: Run job
         run: yarn ${{ inputs.script-name }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
       - name: SonarQube Scan
         if: ${{ inputs.enable-sonar && inputs.node-version == 20 }}
         uses: sonarsource/sonarqube-scan-action@master
