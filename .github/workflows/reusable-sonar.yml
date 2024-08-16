@@ -16,10 +16,10 @@ on:
     secrets:
       SONAR_HOST_URL:
         description: The URL of the SonarQube server, required if inputs.enable-sonar is true
-        required: false
+        required: true
       SONAR_TOKEN:
         description: The token for the SonarQube server, required if inputs.enable-sonar is true
-        required: false
+        required: true
 
 jobs:
   sonar:
