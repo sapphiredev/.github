@@ -1,0 +1,45 @@
+name: sonar
+
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        description: The version of Node.js to use
+        required: false
+        default: 20
+        type: number
+      operating-system:
+        description: The operating system to use
+        required: false
+        default: ubuntu-latest
+        type: string
+    secrets:
+      SONAR_HOST_URL:
+        description: The URL of the SonarQube server, required if inputs.enable-sonar is true
+        required: false
+      SONAR_TOKEN:
+        description: The token for the SonarQube server, required if inputs.enable-sonar is true
+        required: false
+
+jobs:
+  sonar:
+    name: Sonar Analysis
+    runs-on: ${{ inputs.operating-system }}
+    steps:
+      - name: Checkout Project
+        uses: actions/checkout@v4
+      - name: Install dependencies
+        uses: sapphiredev/.github/actions/install-yarn-dependencies@main
+        with:
+          node-version: ${{ inputs.node-version }}
+      - name: SonarQube Scan
+        uses: sonarsource/sonarqube-scan-action@master
+        env:
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - name: Quality Gate
+        uses: sonarsource/sonarqube-quality-gate-action@master
+        timeout-minutes: 5
+        env:
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
