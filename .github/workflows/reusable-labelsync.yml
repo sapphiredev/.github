@@ -1,13 +1,8 @@
-name: Check Prettier
+name: Label Sync
 
 on:
   workflow_call:
     inputs:
-      node-version:
-        description: The version of Node.js to use
-        required: false
-        default: 20
-        type: number
       operating-system:
         description: The operating system to use
         required: false
@@ -16,7 +11,7 @@ on:
 
 jobs:
   check:
-    name: Check Prettier
+    name: Label sync
     runs-on: ${{ github.event.inputs.operating-system }}
     steps:
       - name: Checkout Project
