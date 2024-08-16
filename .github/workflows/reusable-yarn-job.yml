@@ -4,12 +4,12 @@ on:
   workflow_call:
     inputs:
       node-version:
-        description: The version of Node.js to use
+        description: The version of Node.js to use. Defaults to Node 20
         required: false
         default: 20
         type: number
       operating-system:
-        description: The operating system to use
+        description: The operating system to use. Defaults to ubuntu-latest
         required: false
         default: ubuntu-latest
         type: string
@@ -18,7 +18,7 @@ on:
         required: true
         type: string
       enable-sonar:
-        description: Whether to enable SonarQube analysis
+        description: Whether to enable SonarQube analysis. Defaults to false. Enable it stand-alone, or in the tests job
         required: false
         default: false
         type: boolean
