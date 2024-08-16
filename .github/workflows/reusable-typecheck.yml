@@ -1,4 +1,4 @@
-name: testing
+name: typechecking
 
 on:
   workflow_call:
@@ -15,10 +15,10 @@ on:
         type: string
 
 jobs:
-  testing:
-    name: Unit testing
+  typechecking:
+    name: Typechecking
     uses: sapphiredev/.github/.github/workflows/reusable-yarn-job.yml@main
     with:
-      script-name: test
+      script-name: typecheck
       operating-system: ${{ inputs.operating-system }}
       node-version: ${{ inputs.node-version }}

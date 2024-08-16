@@ -15,10 +15,10 @@ on:
         type: string
 
 jobs:
-  Linting:
+  linting:
     name: Linting
     uses: sapphiredev/.github/.github/workflows/reusable-yarn-job.yml@main
     with:
-      script-name: lint --fix=false
+      script-name: build
       operating-system: ${{ inputs.operating-system }}
       node-version: ${{ inputs.node-version }}

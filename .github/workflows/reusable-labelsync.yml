@@ -1,4 +1,4 @@
-name: Label Sync
+name: label-sync
 
 on:
   workflow_call:
@@ -19,7 +19,7 @@ on:
         type: string
 
 jobs:
-  check:
+  label-sync:
     name: Label sync
     runs-on: ${{ inputs.operating-system }}
     steps:

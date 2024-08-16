@@ -1,4 +1,4 @@
-name: testing
+name: building
 
 on:
   workflow_call:
@@ -15,10 +15,10 @@ on:
         type: string
 
 jobs:
-  testing:
-    name: Unit testing
+  building:
+    name: Building
     uses: sapphiredev/.github/.github/workflows/reusable-yarn-job.yml@main
     with:
-      script-name: test
+      script-name: build
       operating-system: ${{ inputs.operating-system }}
       node-version: ${{ inputs.node-version }}

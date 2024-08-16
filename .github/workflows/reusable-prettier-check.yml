@@ -15,8 +15,8 @@ on:
         type: string
 
 jobs:
-  check:
-    name: Check Prettier
+  prettier:
+    name: Prettier checking
     uses: sapphiredev/.github/.github/workflows/reusable-yarn-job.yml@main
     with:
       script-name: format:check
