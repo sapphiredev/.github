@@ -17,13 +17,13 @@ on:
 jobs:
   check:
     name: Check Prettier
-    runs-on: ${{ github.event.inputs.operating-system }}
+    runs-on: ${{ inputs.operating-system }}
     steps:
       - name: Checkout Project
         uses: actions/checkout@v4
       - name: Install dependencies
         uses: ./actions/install-dependencies
         with:
-          node-version: ${{ github.event.inputs.node-version }}
+          node-version: ${{ inputs.node-version }}
       - name: Run Prettier
         run: yarn format:check

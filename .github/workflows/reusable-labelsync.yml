@@ -12,7 +12,7 @@ on:
 jobs:
   check:
     name: Label sync
-    runs-on: ${{ github.event.inputs.operating-system }}
+    runs-on: ${{ inputs.operating-system }}
     steps:
       - name: Checkout Project
         uses: actions/checkout@v4
