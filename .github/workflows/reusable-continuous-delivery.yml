@@ -1,0 +1,68 @@
+name: publish
+
+on:
+  workflow_call:
+    inputs:
+      pr-number:
+        description: The number of the PR that is being deployed
+        required: true
+        type: number
+      ref:
+        description: The branch that is being deployed. Should be a branch on the given repository
+        required: false
+        default: main
+        type: string
+      repository:
+        description: The {owner}/{repository} that is being deployed.
+        required: false
+        default: sapphiredev/framework
+        type: string
+      node-version:
+        description: The version of Node.js to use. Defaults to Node 20
+        required: false
+        default: 20
+        type: number
+      operating-system:
+        description: The operating system to use
+        required: false
+        default: ubuntu-latest
+        type: string
+    secrets:
+      NODE_AUTH_TOKEN:
+        description: The token to authenticate with the NPM registry
+        required: true
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    name: Continuous Delivery
+    runs-on: ${{ inputs.operating-system }}
+    if: github.repository_owner == 'sapphiredev'
+    steps:
+      - name: Checkout Project
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          repository: ${{ inputs.repository }}
+          ref: ${{ inputs.ref }}
+      - name: Install dependencies
+        uses: sapphiredev/.github/actions/install-yarn-dependencies@main
+        with:
+          node-version: ${{ inputs.node-version }}
+      - name: Bump Version & Publish
+        run: |
+          # Resolve the tag to be used. "next" for push events, "pr-{prNumber}" for dispatch events.
+          TAG=$([[ ${{ github.event_name }} == 'push' ]] && echo 'next' || echo 'pr-${{ inputs.pr-number }}')
+
+          yarn config set npmAuthToken ${NODE_AUTH_TOKEN}
+          yarn config set npmPublishRegistry "https://registry.yarnpkg.com"
+
+          yarn bump --preid "${TAG}.$(git rev-parse --verify --short HEAD)" --skip-changelog
+
+          yarn npm publish --tag ${TAG}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,67 @@
+name: publish
+
+on:
+  workflow_call:
+    inputs:
+      project-name:
+        description: The name of the project
+        required: true
+        type: string
+      node-version:
+        description: The version of Node.js to use. Defaults to Node 20
+        required: false
+        default: 20
+        type: number
+      operating-system:
+        description: The operating system to use
+        required: false
+        default: ubuntu-latest
+        type: string
+    secrets:
+      NODE_AUTH_TOKEN:
+        description: The token to authenticate with the NPM registry
+        required: true
+      SKYRA_TOKEN:
+        description: The token to authenticate with the GitHub repository used to bypass `main` branch checks
+        required: true
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    name: Publish ${{ inputs.project-name }}
+    runs-on: ${{ inputs.operating-system }}
+    if: github.repository_owner == 'sapphiredev'
+    steps:
+      - name: Checkout Project
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: main
+          token: ${{ secrets.SKYRA_TOKEN }}
+      - name: Install dependencies
+        uses: sapphiredev/.github/actions/install-yarn-dependencies@main
+        with:
+          node-version: ${{ inputs.node-version }}
+      - name: Configure Git
+        run: |
+          git remote set-url origin "https://${GITHUB_TOKEN}:x-oauth-basic@github.com/${GITHUB_REPOSITORY}.git"
+          git config --local user.email "${GITHUB_EMAIL}"
+          git config --local user.name "${GITHUB_USER}"
+        env:
+          GITHUB_USER: github-actions[bot]
+          GITHUB_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Bump Versions and make release
+        run: yarn bump
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish to NPM
+        run: |
+          yarn config set npmAuthToken ${NODE_AUTH_TOKEN}
+          yarn config set npmPublishRegistry "https://registry.yarnpkg.com"
+          yarn npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
