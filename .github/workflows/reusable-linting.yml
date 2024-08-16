@@ -21,8 +21,19 @@ jobs:
     steps:
       - name: Checkout Project
         uses: actions/checkout@v4
+      - name: Checkout CI repository
+        uses: actions/checkout@v4
+        with:
+          path: ci-actions
+          sparse-checkout: actions/
+          sparse-checkout-cone-mode: false
+          repository: sapphiredev/.github
+      - name: Debugging
+        run: |
+          ls -la
+          ls -la ci-actions
       - name: Install dependencies
-        uses: ./actions/install-dependencies
+        uses: ci-actions/actions/install-dependencies
         with:
           node-version: ${{ inputs.node-version }}
       - name: Linting
