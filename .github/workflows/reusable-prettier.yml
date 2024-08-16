@@ -1,4 +1,4 @@
-name: linting
+name: prettier
 
 on:
   workflow_call:
@@ -15,10 +15,10 @@ on:
         type: string
 
 jobs:
-  linting:
-    name: Linting
+  prettier:
+    name: Prettier checking
     uses: sapphiredev/.github/.github/workflows/reusable-yarn-job.yml@main
     with:
-      script-name: build
+      script-name: format:check
       operating-system: ${{ inputs.operating-system }}
       node-version: ${{ inputs.node-version }}

@@ -1,4 +1,4 @@
-name: typechecking
+name: typecheck
 
 on:
   workflow_call:
@@ -15,7 +15,7 @@ on:
         type: string
 
 jobs:
-  typechecking:
+  typecheck:
     name: Typechecking
     uses: sapphiredev/.github/.github/workflows/reusable-yarn-job.yml@main
     with:
