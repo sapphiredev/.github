@@ -8,27 +8,45 @@ on:
         required: false
         default: ubuntu-latest
         type: string
+      merge-labels:
+        description: Whether to merge labels or not
+        required: false
+        default: false
+        type: boolean
+      repository-overwrite-labels:
+        description: The repository to get overwrite labels from. Only used if merge-labels is true!
+        required: false
+        type: string
 
 jobs:
   check:
     name: Label sync
     runs-on: ${{ inputs.operating-system }}
     steps:
-      - name: Checkout Project
+      - name: Checkout Core labels
         uses: actions/checkout@v4
         with:
+          path: core-labels
           sparse-checkout: .github/labels.yml
           sparse-checkout-cone-mode: false
           repository: 'sapphiredev/.github'
-      - name: Run analysis
+      - name: Checkout Overwrite Labels
+        if: ${{ inputs.merge-labels == true }}
+        uses: actions/checkout@v4
+        with:
+          path: overwrite-labels
+          sparse-checkout: .github/labels.yml
+          sparse-checkout-cone-mode: false
+          repository: 'sapphiredev/.github'
+      - name: Merge labels
+        if: ${{ inputs.merge-labels == true }}
         run: |
-            pwd
-            ls -al ../
-            ls -al
-            ls -al .github
-            cat .github/labels.yml
-    #   - name: Run Label Sync
-    #     uses: crazy-max/ghaction-github-labeler@v5
-    #     with:
-    #       github-token: ${{ secrets.GITHUB_TOKEN }}
-    #       yaml-file: sapphiredev-config/.github/labels.yml
+          yq '. *+ load("core-labels/.github/labels.yml")' overwrite-labels/.github/labels.yml > labels.yml
+      - name: Move core labels
+        if: ${{ inputs.merge-labels == false }}
+        run: mv core-labels/.github/labels.yml labels.yml
+      - name: Run Label Sync
+        uses: crazy-max/ghaction-github-labeler@v5
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          yaml-file: labels.yml
