@@ -13,22 +13,10 @@ on:
         required: false
         default: ubuntu-latest
         type: string
-      script-name:
-        description: The name of the script to run to validate formatting. Defaults to 'format:check'
-        required: false
-        default: format:check
-        type: string
 
 jobs:
   check:
     name: Check Prettier
-    runs-on: ${{ inputs.operating-system }}
-    steps:
-      - name: Checkout Project
-        uses: actions/checkout@v4
-      - name: Install dependencies
-        uses: sapphiredev/.github/actions/install-yarn-dependencies@main
-        with:
-          node-version: ${{ inputs.node-version }}
-      - name: Run formatting check
-        run: yarn ${{ inputs.script-name }}
+    uses: sapphiredev/.github/.github/workflows/reusable-yarn-job.yml@main
+    with:
+      script-name: format:check

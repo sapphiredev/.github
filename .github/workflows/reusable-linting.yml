@@ -17,13 +17,6 @@ on:
 jobs:
   Linting:
     name: Linting
-    runs-on: ${{ inputs.operating-system }}
-    steps:
-      - name: Checkout Project
-        uses: actions/checkout@v4
-      - name: Install dependencies
-        uses: sapphiredev/.github/actions/install-yarn-dependencies@main
-        with:
-          node-version: ${{ inputs.node-version }}
-      - name: Linting
-        run: yarn lint --fix=false
+    uses: sapphiredev/.github/.github/workflows/reusable-yarn-job.yml@main
+    with:
+      script-name: lint --fix=false
