@@ -19,6 +19,6 @@ jobs:
     name: Linting
     uses: sapphiredev/.github/.github/workflows/reusable-yarn-job.yml@main
     with:
-      script-name: build
+      script-name: lint --fix=false
       operating-system: ${{ inputs.operating-system }}
       node-version: ${{ inputs.node-version }}
