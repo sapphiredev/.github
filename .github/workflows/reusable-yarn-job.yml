@@ -17,6 +17,18 @@ on:
         description: The name of the yarn script to run
         required: true
         type: string
+      enable-sonar:
+        description: Whether to enable SonarQube analysis
+        required: false
+        default: false
+        type: boolean
+    secrets:
+      SONAR_HOST_URL:
+        description: The URL of the SonarQube server, required if inputs.enable-sonar is true
+        required: false
+      SONAR_TOKEN:
+        description: The token for the SonarQube server, required if inputs.enable-sonar is true
+        required: false
 
 jobs:
   run-job:
@@ -31,3 +43,16 @@ jobs:
           node-version: ${{ inputs.node-version }}
       - name: Run job
         run: yarn ${{ inputs.script-name }}
+      - name: SonarQube Scan
+        if: ${{ inputs.enable-sonar && inputs.node-version == 20 }}
+        uses: sonarsource/sonarqube-scan-action@master
+        env:
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - name: Quality Gate
+        if: ${{ inputs.enable-sonar && inputs.node-version == 20 }}
+        uses: sonarsource/sonarqube-quality-gate-action@master
+        timeout-minutes: 5
+        env:
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
