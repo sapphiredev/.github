@@ -20,3 +20,5 @@ jobs:
     uses: sapphiredev/.github/.github/workflows/reusable-yarn-job.yml@main
     with:
       script-name: format:check
+      operating-system: ${{ inputs.operating-system }}
+      node-version: ${{ inputs.node-version }}
