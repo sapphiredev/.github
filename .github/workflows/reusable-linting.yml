@@ -1,0 +1,29 @@
+name: linting
+
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        description: The version of Node.js to use
+        required: false
+        default: 20
+        type: number
+      operating-system:
+        description: The operating system to use
+        required: false
+        default: ubuntu-latest
+        type: string
+
+jobs:
+  Linting:
+    name: Linting
+    runs-on: ${{ github.event.inputs.operating-system }}
+    steps:
+      - name: Checkout Project
+        uses: actions/checkout@v4
+      - name: Install dependencies
+        uses: ./actions/install-dependencies
+        with:
+          node-version: ${{ github.event.inputs.node-version }}
+      - name: Linting
+        run: yarn lint --fix=false

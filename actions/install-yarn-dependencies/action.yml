@@ -1,0 +1,24 @@
+inputs:
+  node-version:
+    description: The version of Node.js to use
+    required: true
+
+name: yarn install
+description: Setup Node and install dependencies using Yarn.
+runs:
+  using: composite
+  steps:
+    - name: Set up swap space
+      if: runner.os == 'Linux'
+      uses: pierotofy/set-swap-space@v1.0
+      with:
+        swap-size-gb: 10
+
+    - name: Use Node.js v20
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+
+    - name: Install dependencies
+      shell: bash
+      run: yarn install --immutable
