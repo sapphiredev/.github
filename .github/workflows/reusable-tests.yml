@@ -13,6 +13,18 @@ on:
         required: false
         default: ubuntu-latest
         type: string
+      enable-sonar:
+        description: Whether to enable SonarQube analysis
+        required: false
+        default: false
+        type: boolean
+    secrets:
+      SONAR_HOST_URL:
+        description: The URL of the SonarQube server, required if inputs.enable-sonar is true
+        required: false
+      SONAR_TOKEN:
+        description: The token for the SonarQube server, required if inputs.enable-sonar is true
+        required: false
 
 jobs:
   tests:
@@ -22,3 +34,7 @@ jobs:
       script-name: test
       operating-system: ${{ inputs.operating-system }}
       node-version: ${{ inputs.node-version }}
+      enable-sonar: ${{ inputs.enable-sonar }}
+    secrets:
+      SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
