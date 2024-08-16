@@ -28,12 +28,6 @@ jobs:
           sparse-checkout: actions/
           sparse-checkout-cone-mode: false
           repository: sapphiredev/.github
-      - name: Debugging
-        run: |
-          ls -la
-          ls -la ci-actions
-          ls -la ci-actions/actions
-          ls -la ci-actions/actions/install-yarn-dependencies
       - name: Install dependencies
         uses: ./ci-actions/actions/install-yarn-dependencies
         with:
