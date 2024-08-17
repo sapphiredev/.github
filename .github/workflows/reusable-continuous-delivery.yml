@@ -27,6 +27,11 @@ on:
         required: false
         default: ubuntu-latest
         type: string
+      working-directory:
+        description: The working directory to run the commands in
+        required: false
+        default: .
+        type: string
     secrets:
       NODE_AUTH_TOKEN:
         description: The token to authenticate with the NPM registry
@@ -53,6 +58,7 @@ jobs:
         with:
           node-version: ${{ inputs.node-version }}
       - name: Bump Version & Publish
+        working-directory: ${{ inputs.working-directory}}
         run: |
           # Resolve the tag to be used. "next" for push events, "pr-{prNumber}" for dispatch events.
           TAG=$([[ ${{ github.event_name }} == 'push' ]] && echo 'next' || echo 'pr-${{ inputs.pr-number }}')
