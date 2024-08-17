@@ -18,6 +18,11 @@ on:
         required: false
         default: false
         type: boolean
+      build:
+        description: Whether to run `yarn build` before testing
+        required: false
+        default: false
+        type: boolean
     secrets:
       SONAR_TOKEN:
         description: The token for the SonarQube server, required if inputs.enable-sonar is true
@@ -36,6 +41,9 @@ jobs:
         uses: sapphiredev/.github/actions/install-yarn-dependencies@main
         with:
           node-version: ${{ inputs.node-version }}
+      - name: Build
+        if: ${{ inputs.build }}
+        run: yarn build
       - name: Run job
         run: yarn test
         env:
