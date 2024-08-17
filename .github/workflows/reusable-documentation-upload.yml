@@ -19,10 +19,6 @@ on:
         description: The SHA of the project
         required: true
         type: string
-      mono-repo-name:
-        description: The name of the monorepo, only used if mono-repo is true
-        required: false
-        type: string
       package:
         description: The package name as passed through the matrix, only used if mono-repo is true
         required: false
@@ -77,13 +73,13 @@ jobs:
       - name: Move Documentation
         if: ${{ inputs.mono-repo == true && inputs.type == 'tag' && inputs.package == steps.extract-tag.outputs.package }}
         run: |
-          mkdir -p out/docs/${{ inputs.mono-repo-name }}/${{ steps.extract-tag.outputs.package }}
-          mv docs/${{ steps.extract-tag.outputs.package }}/docs/api.json out/docs/${{ inputs.mono-repo-name }}/${{ steps.extract-tag.outputs.package }}/${{ steps.extract-tag.outputs.semver }}.json
+          mkdir -p out/docs/${{ inputs.project-name }}/${{ steps.extract-tag.outputs.package }}
+          mv docs/${{ steps.extract-tag.outputs.package }}/docs/api.json out/docs/${{ inputs.project-name }}/${{ steps.extract-tag.outputs.package }}/${{ steps.extract-tag.outputs.semver }}.json
       - name: Move Documentation
         if: ${{ inputs.mono-repo == true && inputs.type == 'branch' }}
         run: |
-          mkdir -p out/docs/${{ inputs.mono-repo-name }}/${{ inputs.package }}
-          mv docs/${{ inputs.package }}/docs/api.json out/docs/${{ inputs.mono-repo-name }}/${{ inputs.package }}/${{ inputs.name }}.json
+          mkdir -p out/docs/${{ inputs.project-name }}/${{ inputs.package }}
+          mv docs/${{ inputs.package }}/docs/api.json out/docs/${{ inputs.project-name }}/${{ inputs.package }}/${{ inputs.name }}.json
       #endregion
 
       #region Move [Regular Repo]
