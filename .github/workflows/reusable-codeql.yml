@@ -8,6 +8,11 @@ on:
         required: false
         default: ubuntu-latest
         type: string
+      with-auto-build:
+        description: Whether to include codeql autobuild
+        required: false
+        default: true
+        type: boolean
 
 jobs:
   codeql:
@@ -21,6 +26,7 @@ jobs:
         uses: github/codeql-action/init@v3
 
       - name: Autobuild
+        if: ${{ inputs.with-auto-build }}
         uses: github/codeql-action/autobuild@v3
 
       - name: Perform CodeQL Analysis
