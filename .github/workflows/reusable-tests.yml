@@ -30,6 +30,8 @@ jobs:
     steps:
       - name: Checkout Project
         uses: actions/checkout@v4
+        with:
+          fetch-depth: ${{ inputs.enable-sonar == true && '0' || '1' }}
       - name: Install dependencies
         uses: sapphiredev/.github/actions/install-yarn-dependencies@main
         with:
