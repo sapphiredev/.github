@@ -17,6 +17,11 @@ on:
         required: false
         default: ubuntu-latest
         type: string
+      working-directory:
+        description: The working directory to run the commands in
+        required: false
+        default: .
+        type: string
     secrets:
       NODE_AUTH_TOKEN:
         description: The token to authenticate with the NPM registry
@@ -55,10 +60,12 @@ jobs:
           GITHUB_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Bump Versions and make release
+        working-directory: ${{ inputs.working-directory }}
         run: yarn bump
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Publish to NPM
+        working-directory: ${{ inputs.working-directory }}
         run: |
           yarn config set npmAuthToken ${NODE_AUTH_TOKEN}
           yarn config set npmPublishRegistry "https://registry.yarnpkg.com"
