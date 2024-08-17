@@ -44,9 +44,10 @@ jobs:
     uses: sapphiredev/.github/.github/workflows/reusable-documentation-upload.yml@main
     with:
       project-name: ${{ inputs.project-name }}
-      name: ${{ needs.docgen.outputs.NAME }}
-      type: ${{ needs.docgen.outputs.TYPE }}
-      sha: ${{ needs.docgen.outputs.SHA }}
+      name: ${{ needs.docgen.outputs.name }}
+      type: ${{ needs.docgen.outputs.type }}
+      sha: ${{ needs.docgen.outputs.sha }}
+      artifact-id: ${{ needs.docgen.outputs.artifact-id }}
       node-version: ${{ inputs.node-version }}
       operating-system: ${{ inputs.operating-system }}
       mono-repo: ${{ inputs.mono-repo }}

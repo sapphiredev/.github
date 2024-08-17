@@ -19,6 +19,10 @@ on:
         description: The SHA of the project
         required: true
         type: string
+      artifact-id:
+        description: The id of the uploaded artifact
+        required: true
+        type: string
       package:
         description: The package name as passed through the matrix, only used if mono-repo is true
         required: false
@@ -57,7 +61,7 @@ jobs:
       - name: Download Documentation Artifacts
         uses: actions/download-artifact@v4
         with:
-          name: docs
+          name: ${{ inputs.artifact-id}}
           path: docs
       - name: Checkout Documentation Project
         uses: actions/checkout@v4

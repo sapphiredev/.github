@@ -19,15 +19,18 @@ on:
         default: true
         type: boolean
     outputs:
-      NAME:
+      name:
         description: The name of the project
         value: ${{ jobs.docgen.outputs.NAME }}
-      TYPE:
+      type:
         description: The type of the project
         value: ${{ jobs.docgen.outputs.TYPE }}
-      SHA:
+      sha:
         description: The SHA of the project
         value: ${{ jobs.docgen.outputs.SHA }}
+      artifact-id:
+        description: The id of the uploaded artifact
+        value: ${{ jobs.docgen.outputs.artifact-id }}
 
 jobs:
   docgen:
@@ -35,9 +38,10 @@ jobs:
     runs-on: ${{ inputs.operating-system }}
     if: github.repository_owner == 'sapphiredev'
     outputs:
-      NAME: ${{ steps.env.outputs.NAME }}
-      TYPE: ${{ steps.env.outputs.TYPE }}
-      SHA: ${{ steps.env.outputs.SHA }}
+      name: ${{ steps.env.outputs.NAME }}
+      type: ${{ steps.env.outputs.TYPE }}
+      sha: ${{ steps.env.outputs.SHA }}
+      artifact-id: ${{ steps.env.outputs.ARTIFACT_ID }}
     steps:
       - name: Checkout Project
         uses: actions/checkout@v4
@@ -47,14 +51,15 @@ jobs:
           node-version: ${{ inputs.node-version }}
       - name: Build Documentation
         run: yarn docs
-      - name: Upload Documentation Artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: docs
-          path: ${{ inputs.mono-repo == true && 'packages/*/docs/api.json' || 'docs/api.json' }}
       - name: Set Output
         id: env
         run: |
           echo "NAME=${GITHUB_REF_NAME}" >> $GITHUB_OUTPUT
           echo "TYPE=${GITHUB_REF_TYPE}" >> $GITHUB_OUTPUT
           echo "SHA=${GITHUB_SHA}" >> $GITHUB_OUTPUT
+          echo "ARTIFACT_ID=$(uuidgen)" >> $GITHUB_OUTPUT
+      - name: Upload Documentation Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.env.outputs.ARTIFACT_ID }}
+          path: ${{ inputs.mono-repo == true && 'packages/*/docs/api.json' || 'docs/api.json' }}
