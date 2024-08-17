@@ -32,7 +32,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  docgen:
+  build:
     uses: sapphiredev/.github/.github/workflows/reusable-documentation-docgen.yml@main
     with:
       node-version: ${{ inputs.node-version }}
@@ -40,14 +40,14 @@ jobs:
       mono-repo: ${{ inputs.mono-repo }}
 
   upload:
-    needs: docgen
+    needs: build
     uses: sapphiredev/.github/.github/workflows/reusable-documentation-upload.yml@main
     with:
       project-name: ${{ inputs.project-name }}
-      name: ${{ needs.docgen.outputs.name }}
-      type: ${{ needs.docgen.outputs.type }}
-      sha: ${{ needs.docgen.outputs.sha }}
-      artifact-id: ${{ needs.docgen.outputs.artifact-id }}
+      name: ${{ needs.build.outputs.name }}
+      type: ${{ needs.build.outputs.type }}
+      sha: ${{ needs.build.outputs.sha }}
+      artifact-id: ${{ needs.build.outputs.artifact-id }}
       node-version: ${{ inputs.node-version }}
       operating-system: ${{ inputs.operating-system }}
       mono-repo: ${{ inputs.mono-repo }}
