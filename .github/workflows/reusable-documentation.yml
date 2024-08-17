@@ -27,9 +27,12 @@ on:
         description: The token to use for the documentation repository
         required: true
 
+concurrency:
+  group: ${{ github.workspace }}|${{ github.head_ref || github.ref }}|${{ inputs.operating-system }}|${{ inputs.node-version }}
+  cancel-in-progress: true
+
 jobs:
   docgen:
-    name: build
     uses: sapphiredev/.github/.github/workflows/reusable-documentation-docgen.yml@main
     with:
       node-version: ${{ inputs.node-version }}
@@ -37,7 +40,6 @@ jobs:
       mono-repo: ${{ inputs.mono-repo }}
 
   upload:
-    name: upload
     needs: docgen
     uses: sapphiredev/.github/.github/workflows/reusable-documentation-upload.yml@main
     with:

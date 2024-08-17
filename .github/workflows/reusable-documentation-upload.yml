@@ -19,6 +19,14 @@ on:
         description: The SHA of the project
         required: true
         type: string
+      mono-repo-name:
+        description: The name of the monorepo, only used if mono-repo is true
+        required: false
+        type: string
+      package:
+        description: The package name as passed through the matrix, only used if mono-repo is true
+        required: false
+        type: string
       node-version:
         description: The version of Node.js to use. Defaults to Node 20
         required: false
@@ -34,10 +42,6 @@ on:
         required: false
         default: true
         type: boolean
-
-concurrency:
-  group: documentation|${{ github.head_ref || github.ref }}|${{ inputs.operating-system }}|${{ inputs.node-version }}
-  cancel-in-progress: true
 
 jobs:
   upload:
@@ -62,18 +66,38 @@ jobs:
           token: ${{ secrets.SKYRA_TOKEN }}
           path: 'out'
 
+      - name: Extract Package and Semver
+        if: ${{ inputs.type == 'tag' && inputs.mono-repo == true }}
+        id: extract-tag
+        uses: sapphiredev/.github/actions/format-tag@main
+        with:
+          tag: ${{ inputs.name }}
+
+      #region Move [Mono Repo]
       - name: Move Documentation
-        if: ${{ inputs.type == 'tag' }}
-        env:
-          SEMVER: ${{ inputs.name }}
+        if: ${{ inputs.mono-repo == true && inputs.type == 'tag' && inputs.package == steps.extract-tag.outputs.package }}
+        run: |
+          mkdir -p out/docs/${{ inputs.mono-repo-name }}/${{ steps.extract-tag.outputs.package }}
+          mv docs/${{ steps.extract-tag.outputs.package }}/docs/api.json out/docs/${{ inputs.mono-repo-name }}/${{ steps.extract-tag.outputs.package }}/${{ steps.extract-tag.outputs.semver }}.json
+      - name: Move Documentation
+        if: ${{ inputs.mono-repo == true && inputs.type == 'branch' }}
+        run: |
+          mkdir -p out/docs/${{ inputs.mono-repo-name }}/${{ inputs.package }}
+          mv docs/${{ inputs.package }}/docs/api.json out/docs/${{ inputs.mono-repo-name }}/${{ inputs.package }}/${{ inputs.name }}.json
+      #endregion
+
+      #region Move [Regular Repo]
+      - name: Move Documentation
+        if: ${{ inputs.mono-repo == false && inputs.type == 'tag' }}
         run: |
           mkdir -p out/${{ inputs.project-name }}
-          mv docs/api.json out/docs/${{ inputs.project-name }}/${SEMVER}.json
+          mv docs/api.json out/docs/${{ inputs.project-name }}/${{ inputs.name }}.json
       - name: Move Documentation
-        if: ${{ inputs.type == 'branch' }}
+        if: ${{ inputs.mono-repo == false && inputs.type == 'branch' }}
         run: |
           mkdir -p out/${{ inputs.project-name }}
-          mv docs/api.json out/docs/${{ inputs.project-name }}/${NAME}.json
+          mv docs/api.json out/docs/${{ inputs.project-name }}/${{ inputs.name }}.json
+      # endregion
 
       - name: Commit & Push
         uses: nick-fields/retry@v3
@@ -92,7 +116,7 @@ jobs:
               git config user.email 41898282+github-actions[bot]@users.noreply.github.com
               git config rebase.autostash true
               git config pull.rebase true
-              git commit -m "docs(${{ inputs.project-name }}): build for ${TYPE} ${NAME}: ${SHA}" || true
+              git commit -m "docs(${{ inputs.project-name }}): build for ${{ inputs.type }} ${{ inputs.name }}: ${{ inputs.sha }}" || true
               git pull
               git push
             fi

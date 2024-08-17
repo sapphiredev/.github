@@ -29,10 +29,6 @@ on:
         description: The SHA of the project
         value: ${{ jobs.docgen.outputs.SHA }}
 
-concurrency:
-  group: documentation|${{ github.head_ref || github.ref }}|${{ inputs.operating-system }}|${{ inputs.node-version }}
-  cancel-in-progress: true
-
 jobs:
   docgen:
     name: Build Documentation
