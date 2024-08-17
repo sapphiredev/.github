@@ -23,7 +23,7 @@ on:
         default: .
         type: string
       skip-automatic-bump:
-        description: Whether to skip the automatic bumping of the packageversion
+        description: Whether to skip the automatic bumping of the package version
         required: false
         default: false
         type: boolean
