@@ -17,6 +17,10 @@ on:
         required: false
         default: ubuntu-latest
         type: string
+    secrets:
+      SKYRA_TOKEN:
+        description: The token to use for the documentation repository
+        required: true
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
