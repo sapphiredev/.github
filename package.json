@@ -6,14 +6,16 @@
 	"license": "MIT",
 	"private": true,
 	"scripts": {
-		"prettier": "prettier --ignore-path=.prettierignore",
-		"format": "prettier --write \"*\""
+		"build-action": "ncc build actions/format-tag/src/format-tag.mjs --out actions/format-tag --target es2020 --minify",
+		"format": "prettier --write ."
 	},
 	"packageManager": "yarn@4.4.0",
 	"dependencies": {
-		"@sapphire/prettier-config": "^2.0.0"
+		"@actions/core": "^1.10.1"
 	},
 	"devDependencies": {
+		"@sapphire/prettier-config": "^2.0.0",
+		"@vercel/ncc": "^0.38.1",
 		"prettier": "^3.3.3"
 	},
 	"resolutions": {
