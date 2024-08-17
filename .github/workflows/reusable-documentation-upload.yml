@@ -38,6 +38,10 @@ on:
         required: false
         default: true
         type: boolean
+    secrets:
+      SKYRA_TOKEN:
+        description: The token to use for the documentation repository
+        required: true
 
 jobs:
   upload:
