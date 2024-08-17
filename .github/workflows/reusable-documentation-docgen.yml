@@ -18,6 +18,16 @@ on:
         required: false
         default: true
         type: boolean
+    outputs:
+      NAME:
+        description: The name of the project
+        value: ${{ jobs.docgen.outputs.NAME }}
+      TYPE:
+        description: The type of the project
+        value: ${{ jobs.docgen.outputs.TYPE }}
+      SHA:
+        description: The SHA of the project
+        value: ${{ jobs.docgen.outputs.SHA }}
 
 concurrency:
   group: documentation|${{ github.head_ref || github.ref }}|${{ inputs.operating-system }}|${{ inputs.node-version }}
