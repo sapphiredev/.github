@@ -14,9 +14,6 @@ on:
         default: ubuntu-latest
         type: string
     secrets:
-      SONAR_HOST_URL:
-        description: The URL of the SonarQube server, required if inputs.enable-sonar is true
-        required: true
       SONAR_TOKEN:
         description: The token for the SonarQube server, required if inputs.enable-sonar is true
         required: true
@@ -28,18 +25,14 @@ jobs:
     steps:
       - name: Checkout Project
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Install dependencies
         uses: sapphiredev/.github/actions/install-yarn-dependencies@main
         with:
           node-version: ${{ inputs.node-version }}
-      - name: SonarQube Scan
-        uses: sonarsource/sonarqube-scan-action@master
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
         env:
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      - name: Quality Gate
-        uses: sonarsource/sonarqube-quality-gate-action@master
-        timeout-minutes: 5
-        env:
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

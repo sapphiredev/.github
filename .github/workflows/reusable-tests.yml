@@ -19,9 +19,6 @@ on:
         default: false
         type: boolean
     secrets:
-      SONAR_HOST_URL:
-        description: The URL of the SonarQube server, required if inputs.enable-sonar is true
-        required: false
       SONAR_TOKEN:
         description: The token for the SonarQube server, required if inputs.enable-sonar is true
         required: false
@@ -29,12 +26,21 @@ on:
 jobs:
   tests:
     name: Unit testing
-    uses: sapphiredev/.github/.github/workflows/reusable-yarn-job.yml@main
-    with:
-      script-name: test
-      operating-system: ${{ inputs.operating-system }}
-      node-version: ${{ inputs.node-version }}
-      enable-sonar: ${{ inputs.enable-sonar }}
-    secrets:
-      SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    runs-on: ${{ inputs.operating-system }}
+    steps:
+      - name: Checkout Project
+        uses: actions/checkout@v4
+      - name: Install dependencies
+        uses: sapphiredev/.github/actions/install-yarn-dependencies@main
+        with:
+          node-version: ${{ inputs.node-version }}
+      - name: Run job
+        run: yarn test
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
+      - name: SonarCloud Scan
+        if: ${{ inputs.enable-sonar }}
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
