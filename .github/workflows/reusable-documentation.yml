@@ -1,0 +1,50 @@
+name: docgen
+
+on:
+  workflow_call:
+    inputs:
+      project-name:
+        description: The name of the project
+        required: true
+        type: string
+      node-version:
+        description: The version of Node.js to use. Defaults to Node 20
+        required: false
+        default: 20
+        type: number
+      operating-system:
+        description: The operating system to use
+        required: false
+        default: ubuntu-latest
+        type: string
+      mono-repo:
+        description: Whether this targets a monorepo or not
+        required: false
+        default: true
+        type: boolean
+    secrets:
+      SKYRA_TOKEN:
+        description: The token to use for the documentation repository
+        required: true
+
+jobs:
+  docgen:
+    name: build
+    uses: sapphiredev/.github/.github/workflows/reusable-documentation-docgen.yml@main
+    with:
+      node-version: ${{ inputs.node-version }}
+      operating-system: ${{ inputs.operating-system }}
+      mono-repo: ${{ inputs.mono-repo }}
+
+  upload:
+    name: upload
+    needs: docgen
+    uses: sapphiredev/.github/.github/workflows/reusable-documentation-upload.yml@main
+    with:
+      project-name: ${{ inputs.project-name }}
+      name: ${{ needs.docgen.outputs.NAME }}
+      type: ${{ needs.docgen.outputs.TYPE }}
+      sha: ${{ needs.docgen.outputs.SHA }}
+      node-version: ${{ inputs.node-version }}
+      operating-system: ${{ inputs.operating-system }}
+      mono-repo: ${{ inputs.mono-repo }}
