@@ -6,7 +6,7 @@ on:
       pr-number:
         description: The number of the PR that is being deployed
         required: false
-        type: number
+        type: string
       ref:
         description: The branch that is being deployed. Should be a branch on the given repository
         required: false
