@@ -50,3 +50,5 @@ jobs:
       node-version: ${{ inputs.node-version }}
       operating-system: ${{ inputs.operating-system }}
       mono-repo: ${{ inputs.mono-repo }}
+    secrets:
+      SKYRA_TOKEN: ${{ secrets.SKYRA_TOKEN }}
