@@ -14,8 +14,7 @@ on:
         type: string
       repository:
         description: The {owner}/{repository} that is being deployed.
-        required: false
-        default: sapphiredev/framework
+        required: true
         type: string
       node-version:
         description: The version of Node.js to use. Defaults to Node 20
@@ -38,7 +37,7 @@ on:
         required: true
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
+  group: ${{ github.workflow }}|${{ github.head_ref || github.ref }}|${{ inputs.working-directory }}|${{ inputs.operating-system }}|${{ inputs.repository }}|${{ inputs.node-version }}
   cancel-in-progress: true
 
 jobs:
