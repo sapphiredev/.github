@@ -77,12 +77,12 @@ jobs:
           tag: ${{ inputs.name }}
 
       #region Move [Mono Repo]
-      - name: Move Documentation
+      - name: Move Documentation [Mono Repo Tag]
         if: ${{ inputs.mono-repo == true && inputs.type == 'tag' && inputs.package == steps.extract-tag.outputs.package }}
         run: |
           mkdir -p out/docs/${{ inputs.project-name }}/${{ steps.extract-tag.outputs.package }}
           mv docs/${{ steps.extract-tag.outputs.package }}/docs/api.json out/docs/${{ inputs.project-name }}/${{ steps.extract-tag.outputs.package }}/${{ steps.extract-tag.outputs.semver }}.json
-      - name: Move Documentation
+      - name: Move Documentation [Mono Repo Branch]
         if: ${{ inputs.mono-repo == true && inputs.type == 'branch' }}
         run: |
           mkdir -p out/docs/${{ inputs.project-name }}/${{ inputs.package }}
@@ -90,12 +90,12 @@ jobs:
       #endregion
 
       #region Move [Regular Repo]
-      - name: Move Documentation
+      - name: Move Documentation [Regular Repo Tag]
         if: ${{ inputs.mono-repo == false && inputs.type == 'tag' }}
         run: |
           mkdir -p out/${{ inputs.project-name }}
           mv docs/api.json out/docs/${{ inputs.project-name }}/${{ inputs.name }}.json
-      - name: Move Documentation
+      - name: Move Documentation [Regular Repo Branch]
         if: ${{ inputs.mono-repo == false && inputs.type == 'branch' }}
         run: |
           mkdir -p out/${{ inputs.project-name }}
