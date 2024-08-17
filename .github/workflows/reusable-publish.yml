@@ -27,6 +27,11 @@ on:
         required: false
         default: false
         type: boolean
+      build:
+        description: Whether to run `yarn build` before publishing
+        required: false
+        default: false
+        type: boolean
     secrets:
       NODE_AUTH_TOKEN:
         description: The token to authenticate with the NPM registry
@@ -64,6 +69,9 @@ jobs:
           GITHUB_USER: github-actions[bot]
           GITHUB_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build
+        if: ${{ inputs.build }}
+        run: yarn build
       - name: Bump Versions and make release
         working-directory: ${{ inputs.working-directory }}
         run: |
