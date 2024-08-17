@@ -24,6 +24,8 @@ jobs:
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
+        with:
+          languages: typescript
 
       - name: Autobuild
         if: ${{ inputs.with-auto-build }}
