@@ -1,0 +1,98 @@
+name: docgen
+
+on:
+  workflow_call:
+    inputs:
+      project-name:
+        description: The name of the project
+        required: true
+        type: string
+      name:
+        description: The name of the project
+        required: true
+        type: string
+      type:
+        description: The type of the project
+        required: true
+        type: string
+      sha:
+        description: The SHA of the project
+        required: true
+        type: string
+      node-version:
+        description: The version of Node.js to use. Defaults to Node 20
+        required: false
+        default: 20
+        type: number
+      operating-system:
+        description: The operating system to use
+        required: false
+        default: ubuntu-latest
+        type: string
+      mono-repo:
+        description: Whether this targets a monorepo or not
+        required: false
+        default: true
+        type: boolean
+
+concurrency:
+  group: documentation|${{ github.head_ref || github.ref }}|${{ inputs.operating-system }}|${{ inputs.node-version }}
+  cancel-in-progress: true
+
+jobs:
+  upload:
+    name: Upload Documentation
+    runs-on: ${{ inputs.operating-system}}
+    steps:
+      - name: Checkout Project
+        uses: actions/checkout@v4
+      - name: Install dependencies
+        uses: sapphiredev/.github/actions/install-yarn-dependencies@main
+        with:
+          node-version: ${{ inputs.node-version }}
+      - name: Download Documentation Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: docs
+          path: docs
+      - name: Checkout Documentation Project
+        uses: actions/checkout@v4
+        with:
+          repository: 'sapphiredev/docs'
+          token: ${{ secrets.SKYRA_TOKEN }}
+          path: 'out'
+
+      - name: Move Documentation
+        if: ${{ inputs.type == 'tag' }}
+        env:
+          SEMVER: ${{ inputs.name }}
+        run: |
+          mkdir -p out/${{ inputs.project-name }}
+          mv docs/api.json out/docs/${{ inputs.project-name }}/${SEMVER}.json
+      - name: Move Documentation
+        if: ${{ inputs.type == 'branch' }}
+        run: |
+          mkdir -p out/${{ inputs.project-name }}
+          mv docs/api.json out/docs/${{ inputs.project-name }}/${NAME}.json
+
+      - name: Commit & Push
+        uses: nick-fields/retry@v3
+        with:
+          max_attempts: 3
+          retry_on: error
+          timeout_minutes: 1
+          command: |
+            cd out
+            git add .
+            if git diff-index --quiet HEAD --; then
+              echo "No changes to commit, exiting with code 0"
+              exit 0;
+            else
+              git config user.name github-actions[bot]
+              git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+              git config rebase.autostash true
+              git config pull.rebase true
+              git commit -m "docs(${{ inputs.project-name }}): build for ${TYPE} ${NAME}: ${SHA}" || true
+              git pull
+              git push
+            fi
