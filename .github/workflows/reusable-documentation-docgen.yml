@@ -15,8 +15,7 @@ on:
         type: string
       mono-repo:
         description: Whether this targets a monorepo or not
-        required: false
-        default: true
+        required: true
         type: boolean
     outputs:
       name:

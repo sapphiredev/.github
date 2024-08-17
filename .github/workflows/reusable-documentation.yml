@@ -17,11 +17,6 @@ on:
         required: false
         default: ubuntu-latest
         type: string
-      mono-repo:
-        description: Whether this targets a monorepo or not
-        required: false
-        default: true
-        type: boolean
     secrets:
       SKYRA_TOKEN:
         description: The token to use for the documentation repository
@@ -37,7 +32,7 @@ jobs:
     with:
       node-version: ${{ inputs.node-version }}
       operating-system: ${{ inputs.operating-system }}
-      mono-repo: ${{ inputs.mono-repo }}
+      mono-repo: false
 
   upload:
     needs: build
@@ -50,6 +45,6 @@ jobs:
       artifact-id: ${{ needs.build.outputs.artifact-id }}
       node-version: ${{ inputs.node-version }}
       operating-system: ${{ inputs.operating-system }}
-      mono-repo: ${{ inputs.mono-repo }}
+      mono-repo: false
     secrets:
       SKYRA_TOKEN: ${{ secrets.SKYRA_TOKEN }}
