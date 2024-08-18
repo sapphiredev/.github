@@ -4,10 +4,15 @@ on:
   workflow_call:
     inputs:
       operating-system:
-        description: The operating system to use
+        description: The operating system to use (default `ubuntu-latest`)
         required: false
         default: ubuntu-latest
         type: string
+      with-submodules:
+        description: Whether to include submodules when checking out the repository (default `false`)
+        required: false
+        default: false
+        type: boolean
       merge-labels:
         description: Whether to merge labels or not
         required: false

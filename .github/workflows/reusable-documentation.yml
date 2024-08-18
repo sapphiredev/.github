@@ -8,15 +8,20 @@ on:
         required: true
         type: string
       node-version:
-        description: The version of Node.js to use. Defaults to Node 20
+        description: The version of Node.js to use (default `20`)
         required: false
         default: 20
         type: number
       operating-system:
-        description: The operating system to use
+        description: The operating system to use (default `ubuntu-latest`)
         required: false
         default: ubuntu-latest
         type: string
+      with-submodules:
+        description: Whether to include submodules when checking out the repository (default `false`)
+        required: false
+        default: false
+        type: boolean
     secrets:
       SKYRA_TOKEN:
         description: The token to use for the documentation repository
