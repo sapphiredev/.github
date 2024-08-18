@@ -29,8 +29,8 @@ on:
       with-submodules:
         description: Whether to include submodules when checking out the repository (default `false`)
         required: false
-        default: false
-        type: boolean
+        default: 'false'
+        type: string
       working-directory:
         description: The working directory to run the commands in
         required: false

@@ -16,8 +16,8 @@ on:
       with-submodules:
         description: Whether to include submodules when checking out the repository (default `false`)
         required: false
-        default: false
-        type: boolean
+        default: 'false'
+        type: string
     secrets:
       SONAR_TOKEN:
         description: The token for the SonarQube server, required if inputs.enable-sonar is true

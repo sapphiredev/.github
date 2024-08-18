@@ -44,8 +44,8 @@ on:
       with-submodules:
         description: Whether to include submodules when checking out the repository (default `false`)
         required: false
-        default: false
-        type: boolean
+        default: 'false'
+        type: string
     secrets:
       SKYRA_TOKEN:
         description: The token to use for the documentation repository
