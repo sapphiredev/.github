@@ -37,6 +37,7 @@ jobs:
     with:
       node-version: ${{ inputs.node-version }}
       operating-system: ${{ inputs.operating-system }}
+      with-submodules: ${{ inputs.with-submodules }}
       mono-repo: false
 
   upload:
@@ -50,6 +51,7 @@ jobs:
       artifact-id: ${{ needs.build.outputs.artifact-id }}
       node-version: ${{ inputs.node-version }}
       operating-system: ${{ inputs.operating-system }}
+      with-submodules: ${{ inputs.with-submodules }}
       mono-repo: false
     secrets:
       SKYRA_TOKEN: ${{ secrets.SKYRA_TOKEN }}

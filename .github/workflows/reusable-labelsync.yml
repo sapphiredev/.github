@@ -35,6 +35,7 @@ jobs:
           sparse-checkout: .github/labels.yml
           sparse-checkout-cone-mode: false
           repository: sapphiredev/.github
+          submodules: ${{ inputs.with-submodules }}
       - name: Checkout Overwrite Labels
         if: ${{ inputs.merge-labels == true }}
         uses: actions/checkout@v4
@@ -43,6 +44,7 @@ jobs:
           sparse-checkout: .github/labels.yml
           sparse-checkout-cone-mode: false
           repository: ${{ inputs.repository-overwrite-labels }}
+          submodules: ${{ inputs.with-submodules }}
       - name: Merge labels
         if: ${{ inputs.merge-labels == true }}
         run: |

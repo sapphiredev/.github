@@ -27,3 +27,4 @@ jobs:
       script-name: typecheck
       operating-system: ${{ inputs.operating-system }}
       node-version: ${{ inputs.node-version }}
+      with-submodules: ${{ inputs.with-submodules }}

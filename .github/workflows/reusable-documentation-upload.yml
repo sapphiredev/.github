@@ -58,6 +58,8 @@ jobs:
     steps:
       - name: Checkout Project
         uses: actions/checkout@v4
+        with:
+          submodules: ${{ inputs.with-submodules }}
       - name: Install dependencies
         uses: sapphiredev/.github/actions/install-yarn-dependencies@main
         with:
@@ -73,6 +75,7 @@ jobs:
           repository: 'sapphiredev/docs'
           token: ${{ secrets.SKYRA_TOKEN }}
           path: 'out'
+          submodules: ${{ inputs.with-submodules }}
 
       - name: Extract Package and Semver
         if: ${{ inputs.type == 'tag' && inputs.mono-repo == true }}
