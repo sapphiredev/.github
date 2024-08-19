@@ -76,7 +76,7 @@ jobs:
           GITHUB_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Build
-        if: ${{ inputs.build }}
+        if: inputs.build
         run: yarn build
       - name: Bump Versions and make release
         working-directory: ${{ inputs.working-directory }}

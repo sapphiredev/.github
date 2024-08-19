@@ -35,7 +35,7 @@ jobs:
           languages: typescript
 
       - name: Autobuild
-        if: ${{ inputs.with-auto-build }}
+        if: inputs.with-auto-build
         uses: github/codeql-action/autobuild@v3
 
       - name: Perform CodeQL Analysis

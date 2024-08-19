@@ -37,7 +37,7 @@ jobs:
           repository: sapphiredev/.github
           submodules: ${{ inputs.with-submodules }}
       - name: Checkout Overwrite Labels
-        if: ${{ inputs.merge-labels == true }}
+        if: inputs.merge-labels == true
         uses: actions/checkout@v4
         with:
           path: overwrite-labels
@@ -46,11 +46,11 @@ jobs:
           repository: ${{ inputs.repository-overwrite-labels }}
           submodules: ${{ inputs.with-submodules }}
       - name: Merge labels
-        if: ${{ inputs.merge-labels == true }}
+        if: inputs.merge-labels == true
         run: |
           yq '. *+ load("core-labels/.github/labels.yml")' overwrite-labels/.github/labels.yml > labels.yml
       - name: Move core labels
-        if: ${{ inputs.merge-labels == false }}
+        if: inputs.merge-labels == false
         run: mv core-labels/.github/labels.yml labels.yml
       - name: Run Label Sync
         uses: crazy-max/ghaction-github-labeler@v5

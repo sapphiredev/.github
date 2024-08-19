@@ -48,7 +48,7 @@ jobs:
         with:
           node-version: ${{ inputs.node-version }}
       - name: Build
-        if: ${{ inputs.build }}
+        if: inputs.build
         run: yarn build
       - name: Run job
         run: yarn test
