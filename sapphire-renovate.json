@@ -31,6 +31,10 @@
 			{
 				"matchPackagePatterns": ["typedoc"],
 				"enabled": false
+			},
+			{
+				"matchPackagePatterns": ["discord-api-types"],
+				"enabled": false
 			}
 		]
 	}
