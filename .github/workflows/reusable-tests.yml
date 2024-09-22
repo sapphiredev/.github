@@ -28,6 +28,11 @@ on:
         required: false
         default: false
         type: boolean
+      ci:
+        description: Whether to run in CI mode. This runs "test:ci" instead of "test"
+        required: false
+        default: false
+        type: boolean
     secrets:
       SONAR_TOKEN:
         description: The token for the SonarQube server, required if inputs.enable-sonar is true
@@ -51,7 +56,7 @@ jobs:
         if: inputs.build
         run: yarn build
       - name: Run job
-        run: yarn test
+        run: yarn ${{ inputs.ci && 'test:ci' || 'test' }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
       - name: SonarCloud Scan
