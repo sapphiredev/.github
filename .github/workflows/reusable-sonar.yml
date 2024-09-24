@@ -39,7 +39,7 @@ jobs:
         with:
           node-version: ${{ inputs.node-version }}
       - name: SonarCloud Scan
-        if: env.SONAR_TOKEN
+        if: env.SONAR_TOKEN != null
         uses: SonarSource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
