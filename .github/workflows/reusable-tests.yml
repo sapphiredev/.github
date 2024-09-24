@@ -60,7 +60,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
       - name: SonarCloud Scan
-        if: inputs.enable-sonar && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.owner.login == 'sapphiredev')
+        if: inputs.enable-sonar && env.SONAR_TOKEN && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.owner.login == 'sapphiredev')
         uses: SonarSource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
