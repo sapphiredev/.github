@@ -29,6 +29,8 @@ jobs:
     runs-on: ${{ inputs.operating-system }}
     if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.owner.login == 'sapphiredev'
     steps:
+      - name: dump github context
+        run: echo "${{ toJson(github) }}"
       - name: Checkout Project
         uses: actions/checkout@v4
         with:
