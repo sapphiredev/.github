@@ -27,7 +27,7 @@ jobs:
   sonar:
     name: Sonar Analysis
     runs-on: ${{ inputs.operating-system }}
-    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.owner.login == 'sapphiredev'
+    if: (github.event_name != 'pull_request' || github.event.pull_request.head.repo.owner.login == 'sapphiredev') && github.actor != 'dependabot[bot]'
     steps:
       - name: Checkout Project
         uses: actions/checkout@v4
@@ -39,7 +39,6 @@ jobs:
         with:
           node-version: ${{ inputs.node-version }}
       - name: SonarCloud Scan
-        if: env.SONAR_TOKEN
         uses: SonarSource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
