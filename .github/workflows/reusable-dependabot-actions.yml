@@ -1,0 +1,41 @@
+name: dependabot-actions
+
+on:
+  workflow_call:
+    inputs:
+      operating-system:
+        description: The operating system to use (default `ubuntu-latest`)
+        required: false
+        default: ubuntu-latest
+        type: string
+      repo:
+        description: The repo-owner/repo string for the repository filter
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  dependabot:
+    name: Dependabot actions
+    runs-on: ${{ inputs.operating-system}}
+    if: github.event.pull_request.user.login == 'dependabot[bot]' && github.repository == inputs.repo
+    steps:
+      - name: Dependabot metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Approve a PR
+        run: gh pr review --approve "${{github.event.pull_request.html_url}}"
+        env:
+          GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+      - name: Enable auto-merge for Dependabot PRs
+        if: steps.metadata.outputs.update-type == 'version-update:semver-patch' || steps.metadata.outputs.update-type == 'version-update:semver-minor'
+        run: gh pr merge --auto --merge "${{github.event.pull_request.html_url}}"
+        env:
+          GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
