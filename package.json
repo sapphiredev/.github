@@ -15,7 +15,7 @@
 	},
 	"devDependencies": {
 		"@sapphire/prettier-config": "^2.0.0",
-		"@vercel/ncc": "^0.38.2",
+		"@vercel/ncc": "^0.38.3",
 		"prettier": "^3.3.3"
 	},
 	"resolutions": {
