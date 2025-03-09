@@ -16,7 +16,7 @@
 	"devDependencies": {
 		"@sapphire/prettier-config": "^2.0.0",
 		"@vercel/ncc": "^0.38.3",
-		"prettier": "^3.5.2"
+		"prettier": "^3.5.3"
 	},
 	"resolutions": {
 		"ansi-regex": "^6.1.0",
