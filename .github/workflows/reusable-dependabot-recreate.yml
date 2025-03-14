@@ -2,6 +2,10 @@ name: recreate-dependabot-prs
 
 on:
   workflow_call:
+    secrets:
+      GITHUB_API_TOKEN:
+        description: A GitHub token to use for the API calls. This cannot be the default GITHUB_TOKEN as Dependabot requires the user to have push permissions
+        required: true
     inputs:
       operating-system:
         description: The operating system to use (default `ubuntu-latest`)
@@ -10,10 +14,6 @@ on:
         type: string
       repo:
         description: The repo-owner/repo string for the repository filter
-        required: true
-        type: string
-      token:
-        description: A custom token to use for the workflow. This cannot be the default GITHUB_TOKEN as Dependabot requires the user to have push permissions
         required: true
         type: string
 
@@ -44,4 +44,4 @@ jobs:
               gh pr comment -b "@dependabot recreate" "${PARSED_URL}"
           done
         env:
-          GITHUB_TOKEN: ${{ inputs.token }}
+          GITHUB_TOKEN: ${{ secrets.COMMENT_TOKEN }}
