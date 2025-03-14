@@ -19,7 +19,7 @@ permissions:
 
 jobs:
   dependabot:
-    name: Recreate PRs
+    name: create-comment
     runs-on: ${{ inputs.operating-system}}
     if: github.repository == inputs.repo
     steps:
