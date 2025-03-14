@@ -44,4 +44,4 @@ jobs:
               gh pr comment -b "@dependabot recreate" "${PARSED_URL}"
           done
         env:
-          GITHUB_TOKEN: ${{ secrets.COMMENT_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_API_TOKEN }}
