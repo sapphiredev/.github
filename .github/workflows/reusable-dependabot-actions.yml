@@ -12,6 +12,16 @@ on:
         description: The repo-owner/repo string for the repository filter
         required: true
         type: string
+      merge-strategy:
+        description: The merge strategy to use
+        required: false
+        type: string
+        default: squash
+      enable-auto-merge:
+        description: Whether to enable auto merge or not
+        required: false
+        type: boolean
+        default: true
 
 permissions:
   contents: write
@@ -35,7 +45,7 @@ jobs:
           GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
       - name: Enable auto-merge for Dependabot PRs
-        if: steps.metadata.outputs.update-type == 'version-update:semver-patch' || steps.metadata.outputs.update-type == 'version-update:semver-minor'
-        run: gh pr merge --auto --merge "${{github.event.pull_request.html_url}}"
+        if: (steps.metadata.outputs.update-type == 'version-update:semver-patch' || steps.metadata.outputs.update-type == 'version-update:semver-minor') && ${{ inputs.enable-auto-merge }}
+        run: gh pr merge --auto --${{ inputs.merge-strategy }} "${{github.event.pull_request.html_url}}"
         env:
           GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
