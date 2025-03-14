@@ -21,7 +21,7 @@ jobs:
   dependabot:
     name: Recreate PRs
     runs-on: ${{ inputs.operating-system}}
-    if: github.event.pull_request.user.login == 'dependabot[bot]' && github.repository == inputs.repo
+    if: github.repository == inputs.repo
     steps:
       - name: Checkout Project
         uses: actions/checkout@v4
