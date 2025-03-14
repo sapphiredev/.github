@@ -12,6 +12,10 @@ on:
         description: The repo-owner/repo string for the repository filter
         required: true
         type: string
+      token:
+        description: A custom token to use for the workflow. This cannot be the default GITHUB_TOKEN as Dependabot requires the user to have push permissions
+        required: true
+        type: string
 
 permissions:
   contents: write
@@ -29,15 +33,15 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Comment on PRs
         run: |
-            DEPENDABOT_PRS=$(
-                gh api -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" "/repos/${{ inputs.repo }}/pulls?state=open" \
-                    | jq -r '.[] | select(.user.login == "dependabot[bot]")' \
-                    | jq -r .issue_url
-                )
-            printf "Found the following PR issue urls: \n${DEPENDABOT_PRS} \n"
-            for PR in ${DEPENDABOT_PRS}; do
-                PARSED_URL=$(echo ${PR} | sed 's/api\.//' | sed 's/repos\///' | sed 's/issues/pull/')
-                gh pr comment -b "@dependabot recreate" "${PARSED_URL}"
-            done
+          DEPENDABOT_PRS=$(
+              gh api -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" "/repos/${{ inputs.repo }}/pulls?state=open" \
+                  | jq -r '.[] | select(.user.login == "dependabot[bot]")' \
+                  | jq -r .issue_url
+              )
+          printf "Found the following PR issue urls: \n${DEPENDABOT_PRS} \n"
+          for PR in ${DEPENDABOT_PRS}; do
+              PARSED_URL=$(echo ${PR} | sed 's/api\.//' | sed 's/repos\///' | sed 's/issues/pull/')
+              gh pr comment -b "@dependabot recreate" "${PARSED_URL}"
+          done
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ inputs.token }}
