@@ -83,7 +83,10 @@ jobs:
 
           yarn bump --preid "${TAG}.$(git rev-parse --verify --short HEAD)" --skip-changelog
 
-          yarn npm publish --tag ${TAG} --provenance
+          # Detect whether the current Yarn version is eligible for publishing with provenance (v4.9.0 or later)
+          FLAG=$([ $(node -p "require('semver').gte('$(yarn --version)', '4.9.0')") = true ] && echo '--provenance' || echo '')
+
+          yarn npm publish --tag ${TAG} ${FLAG}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
