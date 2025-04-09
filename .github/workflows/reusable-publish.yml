@@ -54,6 +54,8 @@ jobs:
     name: Publish ${{ inputs.project-name }}
     runs-on: ${{ inputs.operating-system }}
     if: github.repository_owner == 'sapphiredev'
+    permissions:
+      id-token: write
     steps:
       - name: Checkout Project
         uses: actions/checkout@v4
@@ -93,6 +95,6 @@ jobs:
         run: |
           yarn config set npmAuthToken ${NODE_AUTH_TOKEN}
           yarn config set npmPublishRegistry "https://registry.yarnpkg.com"
-          yarn npm publish
+          yarn npm publish --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
