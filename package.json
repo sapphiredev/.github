@@ -9,7 +9,7 @@
 		"build-action": "ncc build actions/format-tag/src/format-tag.mjs --out actions/format-tag --target es2020 --minify",
 		"format": "prettier --write ."
 	},
-	"packageManager": "yarn@4.8.1",
+	"packageManager": "yarn@4.9.0",
 	"dependencies": {
 		"@actions/core": "^1.11.1"
 	},
