@@ -25,16 +25,16 @@
 				"enabled": false
 			},
 			{
-				"matchPackagePatterns": ["typescript"],
-				"enabled": false
+				"enabled": false,
+				"matchPackageNames": ["/typescript/"]
 			},
 			{
-				"matchPackagePatterns": ["typedoc"],
-				"enabled": false
+				"enabled": false,
+				"matchPackageNames": ["/typedoc/"]
 			},
 			{
-				"matchPackagePatterns": ["discord-api-types"],
-				"enabled": false
+				"enabled": false,
+				"matchPackageNames": ["/discord-api-types/"]
 			}
 		]
 	}
