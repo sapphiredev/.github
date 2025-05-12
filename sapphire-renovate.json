@@ -5,37 +5,37 @@
 	"schedule": ["before 12pm on Sunday"],
 	"cloneSubmodules": true,
 	"npm": {
-		"postUpdateOptions": ["yarnDedupeHighest"],
-		"rangeStrategy": "bump",
 		"packageRules": [
 			{
-				"matchUpdateTypes": ["patch"],
+				"automerge": true,
 				"matchCurrentVersion": "/^0\\./",
-				"automerge": true,
+				"matchUpdateTypes": ["patch"],
 				"platformAutomerge": true
 			},
 			{
-				"matchUpdateTypes": ["minor", "patch"],
+				"automerge": true,
 				"matchCurrentVersion": ">=1.0.0",
-				"automerge": true,
+				"matchUpdateTypes": ["minor", "patch"],
 				"platformAutomerge": true
 			},
 			{
-				"matchDepTypes": ["engines"],
-				"enabled": false
+				"enabled": false,
+				"matchDepTypes": ["engines"]
 			},
 			{
-				"matchPackagePatterns": ["typescript"],
-				"enabled": false
+				"enabled": false,
+				"matchPackageNames": ["/typescript/"]
 			},
 			{
-				"matchPackagePatterns": ["typedoc"],
-				"enabled": false
+				"enabled": false,
+				"matchPackageNames": ["/typedoc/"]
 			},
 			{
-				"matchPackagePatterns": ["discord-api-types"],
-				"enabled": false
+				"enabled": false,
+				"matchPackageNames": ["/discord-api-types/"]
 			}
-		]
+		],
+		"postUpdateOptions": ["yarnDedupeHighest"],
+		"rangeStrategy": "bump"
 	}
 }
