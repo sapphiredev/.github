@@ -29,7 +29,7 @@ jobs:
     runs-on: ${{ inputs.operating-system }}
     steps:
       - name: Checkout Core labels
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           path: core-labels
           sparse-checkout: .github/labels.yml
@@ -38,7 +38,7 @@ jobs:
           submodules: ${{ inputs.with-submodules }}
       - name: Checkout Overwrite Labels
         if: inputs.merge-labels == true
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           path: overwrite-labels
           sparse-checkout: .github/labels.yml
