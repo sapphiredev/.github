@@ -59,7 +59,7 @@ jobs:
       id-token: write
     steps:
       - name: Checkout Project
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
           repository: ${{ inputs.repository }}
