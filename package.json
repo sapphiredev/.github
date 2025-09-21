@@ -9,13 +9,13 @@
 		"build-action": "ncc build actions/format-tag/src/format-tag.mjs --out actions/format-tag --target es2020 --minify",
 		"format": "prettier --write ."
 	},
-	"packageManager": "yarn@4.9.4",
+	"packageManager": "yarn@4.10.0",
 	"dependencies": {
 		"@actions/core": "^1.11.1"
 	},
 	"devDependencies": {
 		"@sapphire/prettier-config": "^2.0.0",
-		"@vercel/ncc": "^0.38.3",
+		"@vercel/ncc": "^0.38.4",
 		"prettier": "^3.6.2"
 	},
 	"resolutions": {
