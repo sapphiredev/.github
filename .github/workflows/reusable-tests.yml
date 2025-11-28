@@ -44,7 +44,7 @@ jobs:
     runs-on: ${{ inputs.operating-system }}
     steps:
       - name: Checkout Project
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           fetch-depth: ${{ inputs.enable-sonar == true && '0' || '1' }}
           submodules: ${{ inputs.with-submodules }}

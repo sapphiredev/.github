@@ -28,7 +28,7 @@ jobs:
     if: github.repository == inputs.repo
     steps:
       - name: Checkout Project
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Check if GITHUB_API_TOKEN is set

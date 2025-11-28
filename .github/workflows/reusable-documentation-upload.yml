@@ -57,7 +57,7 @@ jobs:
     runs-on: ${{ inputs.operating-system}}
     steps:
       - name: Checkout Project
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           submodules: ${{ inputs.with-submodules }}
       - name: Install dependencies
@@ -70,7 +70,7 @@ jobs:
           name: ${{ inputs.artifact-id}}
           path: docs
       - name: Checkout Documentation Project
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           repository: 'sapphiredev/docs'
           token: ${{ secrets.SKYRA_TOKEN }}

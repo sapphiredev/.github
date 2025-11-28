@@ -30,7 +30,7 @@ jobs:
     if: (github.event_name != 'pull_request' || github.event.pull_request.head.repo.owner.login == 'sapphiredev') && github.actor != 'dependabot[bot]'
     steps:
       - name: Checkout Project
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
           submodules: ${{ inputs.with-submodules }}

@@ -48,7 +48,7 @@ jobs:
       artifact-id: ${{ steps.env.outputs.ARTIFACT_ID }}
     steps:
       - name: Checkout Project
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           submodules: ${{ inputs.with-submodules }}
       - name: Install dependencies
