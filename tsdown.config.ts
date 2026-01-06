@@ -1,7 +1,7 @@
 import { defineConfig, type UserConfig } from 'tsdown';
 
 const baseOptions: UserConfig = {
-	minify: false,
+	minify: true,
 	target: 'node24'
 };
 
