@@ -2,5 +2,6 @@
 	"sonarlint.connectedMode.project": {
 		"connectionId": "sapphiredev",
 		"projectKey": "sapphiredev_.github"
-	}
+	},
+	"eslint.useFlatConfig": true
 }

@@ -1,7 +1,7 @@
 import { getInput, setOutput } from '@actions/core';
 
-function formatTag(tag) {
-	const parsed = /(^@.*\/(?<package>.*)@v?)?(?<semver>\d+.\d+.\d+)-?.*/.exec(tag);
+function formatTag(tag: string) {
+	const parsed = /(?:^@.*\/(?<package>.*)@v?)?(?<semver>\d+.\d+.\d+)-?.*/.exec(tag);
 
 	if (parsed?.groups) {
 		return {
@@ -12,7 +12,6 @@ function formatTag(tag) {
 
 	return null;
 }
-
 
 const tag = getInput('tag', { required: true });
 const parsed = formatTag(tag);

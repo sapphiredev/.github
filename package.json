@@ -5,21 +5,41 @@
 	"author": "@sapphire",
 	"license": "MIT",
 	"private": true,
+	"type": "module",
 	"scripts": {
-		"build-action": "ncc build actions/format-tag/src/format-tag.mjs --out actions/format-tag --target es2020 --minify",
+		"build": "tsdown",
+		"typecheck": "tsc -p tsconfig.eslint.json",
+		"lint": "eslint --fix",
 		"format": "prettier --write ."
 	},
-	"packageManager": "yarn@4.12.0",
 	"dependencies": {
 		"@actions/core": "^2.0.1"
 	},
 	"devDependencies": {
+		"@commitlint/cli": "^20.3.0",
+		"@commitlint/config-conventional": "^20.3.0",
 		"@sapphire/prettier-config": "^2.0.0",
-		"@vercel/ncc": "^0.38.4",
-		"prettier": "^3.7.4"
+		"@sapphire/ts-config": "^5.0.3",
+		"@types/node": "^24.10.4",
+		"@typescript-eslint/eslint-plugin": "^8.52.0",
+		"@typescript-eslint/parser": "^8.52.0",
+		"eslint": "^9.39.2",
+		"eslint-config-neon": "^0.2.9",
+		"eslint-config-prettier": "^10.1.8",
+		"eslint-plugin-prettier": "^5.5.4",
+		"lint-staged": "^16.2.7",
+		"prettier": "^3.7.4",
+		"tsdown": "^0.19.0-beta.3",
+		"typescript": "^5.9.3"
 	},
-	"resolutions": {
-		"ansi-regex": "^6.2.2",
-		"minimist": "^1.2.8"
-	}
+	"commitlint": {
+		"extends": [
+			"@commitlint/config-conventional"
+		]
+	},
+	"lint-staged": {
+		"*": "prettier --ignore-unknown --write",
+		"*.{mjs,js,ts}": "eslint --fix --ext mjs,js,ts,mts"
+	},
+	"packageManager": "yarn@4.12.0"
 }
