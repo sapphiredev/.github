@@ -13,7 +13,7 @@
 		"format": "prettier --write ."
 	},
 	"devDependencies": {
-		"@actions/core": "^2.0.1",
+		"@actions/core": "^3.0.0",
 		"@commitlint/cli": "^20.3.0",
 		"@commitlint/config-conventional": "^20.3.0",
 		"@sapphire/prettier-config": "^2.0.0",
