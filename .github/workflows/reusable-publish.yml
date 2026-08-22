@@ -40,7 +40,7 @@ on:
     secrets:
       NODE_AUTH_TOKEN:
         description: The token to authenticate with the NPM registry
-        required: true
+        required: false
       SKYRA_TOKEN:
         description: The token to authenticate with the GitHub repository used to bypass `main` branch checks
         required: true
@@ -94,7 +94,9 @@ jobs:
       - name: Publish to NPM
         working-directory: ${{ inputs.working-directory }}
         run: |
-          yarn config set npmAuthToken ${NODE_AUTH_TOKEN}
+          if [ -n "${NODE_AUTH_TOKEN}" ]; then
+            yarn config set npmAuthToken "${NODE_AUTH_TOKEN}"
+          fi
           yarn config set npmPublishRegistry "https://registry.yarnpkg.com"
 
           # Detect whether the current Yarn version is eligible for publishing with provenance (v4.9.0 or later)
