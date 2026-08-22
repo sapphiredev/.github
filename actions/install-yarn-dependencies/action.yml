@@ -2,6 +2,11 @@ inputs:
   node-version:
     description: The version of Node.js to use
     required: true
+  package-manager-cache:
+    description: Whether to use the package manager's cache (default `true`)
+    required: false
+    default: true
+    type: boolean
 
 name: yarn install
 description: Setup Node and install dependencies using Yarn.
@@ -18,6 +23,7 @@ runs:
       uses: actions/setup-node@v6
       with:
         node-version: ${{ inputs.node-version }}
+        package-manager-cache: ${{ inputs.package-manager-cache }}
 
     - name: Install dependencies
       shell: bash

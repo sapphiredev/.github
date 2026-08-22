@@ -69,6 +69,7 @@ jobs:
         uses: sapphiredev/.github/actions/install-yarn-dependencies@main
         with:
           node-version: ${{ inputs.node-version }}
+          package-manager-cache: false
       - name: Configure Git
         run: |
           git remote set-url origin "https://${GITHUB_TOKEN}:x-oauth-basic@github.com/${GITHUB_REPOSITORY}.git"
