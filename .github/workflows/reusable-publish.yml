@@ -85,7 +85,6 @@ jobs:
           node-version: ${{ inputs.node-version }}
           package-manager-cache: false
       - name: Configure Git
-        if: ${{ inputs.prerelease == 'false' }}
         run: |
           git remote set-url origin "https://${GITHUB_TOKEN}:x-oauth-basic@github.com/${GITHUB_REPOSITORY}.git"
           git config --local user.email "${GITHUB_EMAIL}"
