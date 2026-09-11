@@ -126,7 +126,7 @@ jobs:
           FLAG=$([ $(node -p "require('semver').gte('$(yarn --version)', '4.9.0')") = true ] && echo '--provenance' || echo '')
 
           PUBLISH_ARGS=()
-          if [ -n "${TAG}" ]; then
+          if [ -n "${TAG}" ] && [ "${TAG}" != 'pr-' ]; then
             PUBLISH_ARGS+=(--tag "${TAG}")
           fi
           if [ -n "${FLAG}" ]; then
