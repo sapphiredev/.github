@@ -34,7 +34,7 @@ on:
       node-version:
         description: The version of Node.js to use (default `20`)
         required: false
-        default: 20
+        default: 24
         type: number
       operating-system:
         description: The operating system to use (default `ubuntu-latest`)
@@ -96,7 +96,6 @@ jobs:
           mkdir -p out/docs/${{ inputs.project-name }}/${{ inputs.package }}
           mv docs/${{ inputs.package }}/docs/api.json out/docs/${{ inputs.project-name }}/${{ inputs.package }}/${{ inputs.name }}.json
       #endregion
-
       #region Move [Regular Repo]
       - name: Move Documentation [Regular Repo Tag]
         if: inputs.mono-repo == false && inputs.type == 'tag'
@@ -109,7 +108,6 @@ jobs:
           mkdir -p out/${{ inputs.project-name }}
           mv docs/api.json out/docs/${{ inputs.project-name }}/${{ inputs.name }}.json
       # endregion
-
       - name: Commit & Push
         uses: nick-fields/retry@v4
         with:
