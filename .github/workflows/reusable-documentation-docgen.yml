@@ -48,7 +48,7 @@ jobs:
       artifact-id: ${{ steps.env.outputs.ARTIFACT_ID }}
     steps:
       - name: Checkout Project
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           submodules: ${{ inputs.with-submodules }}
       - name: Install dependencies
@@ -65,7 +65,7 @@ jobs:
           echo "SHA=${GITHUB_SHA}" >> $GITHUB_OUTPUT
           echo "ARTIFACT_ID=$(uuidgen)" >> $GITHUB_OUTPUT
       - name: Upload Documentation Artifacts
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: ${{ steps.env.outputs.ARTIFACT_ID }}
           path: ${{ inputs.mono-repo == true && 'packages/*/docs/api.json' || 'docs/api.json' }}
