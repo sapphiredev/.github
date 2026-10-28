@@ -38,7 +38,7 @@ on:
         default: false
         type: boolean
       pr-number:
-        description: The number of the PR that is being deployed
+        description: Required when publishing from a pull request
         required: false
         type: string
       ref:
@@ -100,7 +100,29 @@ jobs:
         id: bump
         working-directory: ${{ inputs.working-directory }}
         run: |
-          TAG=$([[ ${{ github.event_name }} == 'push' ]] && echo 'next' || echo 'pr-${{ inputs.pr-number }}')
+          case "${EVENT_NAME}" in
+            push)
+              if [ "${REF}" != "refs/heads/main" ]; then
+                echo "Push-triggered publishing is only supported from main (got ${REF})." >&2
+                exit 1
+              fi
+              TAG=next
+              ;;
+            workflow_dispatch)
+              TAG=latest
+              ;;
+            pull_request)
+              if [[ ! "${PR_NUMBER}" =~ ^[0-9]+$ ]]; then
+                echo "A valid pr-number input is required for pull request publishing." >&2
+                exit 1
+              fi
+              TAG="pr-${PR_NUMBER}"
+              ;;
+            *)
+              echo "Publishing is not supported for the ${EVENT_NAME} event." >&2
+              exit 1
+              ;;
+          esac
           echo "tag=${TAG}" >> "$GITHUB_OUTPUT"
 
           if [ "${{ inputs.prerelease }}" = "true" ] && [ -n "${{ inputs.pr-number }}" ]; then
@@ -112,6 +134,9 @@ jobs:
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          EVENT_NAME: ${{ github.event_name }}
+          REF: ${{ github.ref }}
+          PR_NUMBER: ${{ inputs.pr-number }}
       - name: Publish to NPM
         working-directory: ${{ inputs.working-directory }}
         run: |
