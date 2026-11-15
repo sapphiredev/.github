@@ -158,6 +158,7 @@ jobs:
             PUBLISH_ARGS+=("${FLAG}")
           fi
 
+          yarn install --immutable
           yarn npm publish "${PUBLISH_ARGS[@]}"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
