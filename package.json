@@ -25,7 +25,7 @@
 		"eslint-config-neon": "^0.5.4",
 		"eslint-config-prettier": "^10.1.8",
 		"eslint-plugin-prettier": "^5.5.7",
-		"lint-staged": "^17.6.0",
+		"lint-staged": "^17.6.1",
 		"prettier": "^3.10.1",
 		"tsdown": "^0.23.7",
 		"typescript": "^6.0.3"
@@ -39,5 +39,5 @@
 		"*": "prettier --ignore-unknown --write",
 		"*.{mjs,js,ts}": "eslint --fix --ext mjs,js,ts,mts"
 	},
-	"packageManager": "yarn@4.18.1"
+	"packageManager": "yarn@4.19.0"
 }
